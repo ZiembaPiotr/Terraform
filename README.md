@@ -2,7 +2,7 @@
 
 ## Overwiev
 
-This project creates infrastracture showed below.  
+This project creates infrastracture in openstack cloud.  
 
 ### Created infrastracture:
 
