@@ -1,0 +1,8 @@
+%{ for group in ansible_groups }
+[${group}]
+%{ for index, host in hosts ~}
+%{ if slave_group_map[host.name] == group ~}
+${host.name} ansible_host=${host.access_ip_v4} ansible_user=${default_username[host.block_device[0].uuid]}
+%{ endif ~}
+%{ endfor ~}
+%{ endfor ~}

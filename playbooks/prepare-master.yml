@@ -1,0 +1,43 @@
+- name: Prepare ansible master
+  hosts: ansible_master
+  become: yes
+  tasks:
+    - name: Copy public key
+      copy:
+        src: /home/gafcio/Desktop/internship2022/pz/terraform/reusable/ansible-master-slave/master-identity/id_rsa.pub
+        dest: /home/centos/.ssh/id_rsa.pub
+
+    - name: Copy private key
+      copy:
+        src: /home/gafcio/Desktop/internship2022/pz/terraform/reusable/ansible-master-slave/master-identity/id_rsa
+        dest: /home/centos/.ssh/id_rsa
+
+    - name: Add dnf proxy
+      lineinfile:
+        path: /etc/yum.conf
+        line: "proxy=proxy_url"
+        state: present
+    
+    - name: Run dnf update
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Install epel-relase
+      dnf:
+        name: epel-release
+
+    - name: Install Ansible
+      dnf:
+        name: ansible
+        state: latest
+    
+    - name: Create ansible directory
+      file:
+        path: /etc/ansible
+        state: directory
+    
+    - name: Create empty hosts file
+      file:
+        path: /etc/ansible/hosts
+        state: touch

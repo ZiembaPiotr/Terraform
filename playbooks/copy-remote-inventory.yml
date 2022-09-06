@@ -1,0 +1,13 @@
+- name: Copy inventory and playbook to master
+  hosts: ansible_master
+  become: yes
+  tasks:
+    - name: Copy created inventory
+      copy:
+        src: /home/gafcio/Desktop/internship2022/pz/terraform/reusable/ansible-master-slave/inventory-remote/remote-inventory
+        dest: /home/centos/inventory
+
+    - name: Copy playbook to master
+      copy:
+        src: /home/gafcio/Desktop/internship2022/pz/terraform/reusable/ansible-master-slave/playbooks/mkdir-slaves.yml
+        dest: /home/centos/mkdir-slaves.yml
